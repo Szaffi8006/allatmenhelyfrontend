@@ -1,0 +1,60 @@
+.auth-container {
+    height: 100vh; 
+    background-color: #e9effa; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Kártyák egymás alatti elrendezése */
+    margin-top: 80px; 
+  }
+  
+  /* Kártya stílus */
+  .card {
+    border-radius: 15px;
+    background-color: #ffffff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    max-width: 400px; 
+    width: 100%;
+    margin-top: 20px; 
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  h2 {
+    color: black; /* Ugyanaz, mint a navbar menüpont színe */
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem; /* Kisebb cím */
+  }
+  
+  /* A form mezők és a beviteli mezők stílusa */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%; /* Ne legyenek túl szélesek */
+    margin-top: 5px;
+    border: 1px solid #ced4da; /* Finom keret */
+  }
+  
+  /* A gomb stílus */
+  button.btn {
+    width: 100%;
+    border-radius: 10px;
+    padding: 12px;
+    background-color: #4458de; /* Kék háttér */
+    color: white;
+    border: none;
+    font-size: 16px;
+  }
+  
+  button.btn:hover {
+    background-color: #364fc7; /* Sötétebb kék árnyalat */
+  }
+  

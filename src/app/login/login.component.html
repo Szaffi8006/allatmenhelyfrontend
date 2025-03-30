@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg rounded">
+          <div class="card-body">
+            <h3 class="card-title text-center text-primary">Bejelentkezés</h3>
+  
+            <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+            <form (ngSubmit)="login()">
+              <div class="form-group">
+                <label for="name">Felhasználónév</label>
+                <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control" required />
+              </div>
+  
+              <div class="form-group">
+                <label for="password">Jelszó</label>
+                <input
+                  [type]="'password'"
+                  id="password"
+                  [(ngModel)]="password"
+                  name="password"
+                  class="form-control"
+                  required
+                />
+              </div>
+  
+              <button type="submit" class="btn btn-primary btn-block">Bejelentkezés</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
