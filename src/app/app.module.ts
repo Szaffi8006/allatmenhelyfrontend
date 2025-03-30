@@ -23,6 +23,7 @@ import { SearchComponent } from './search/search.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AuthComponent } from './auth/auth.component';
     SearchComponent,
     FavouritesComponent,
     AppointmentsComponent,
-    AuthComponent
+    AuthComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

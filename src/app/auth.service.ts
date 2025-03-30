@@ -1,34 +1,53 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
+import { Observable, tap, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/api'; // Laravel backend API URL
+  private apiUrl = 'http://localhost:8000/api';
+  private loginStatusSubject = new BehaviorSubject<string | null>(null);  // Login státusz
 
   constructor(private http: HttpClient) {}
+
+  get loginStatus$() {
+    return this.loginStatusSubject.asObservable();
+  }
 
   register(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
   login(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, userData);
+    return this.http.post(`${this.apiUrl}/login`, userData).pipe(
+      tap((response: any) => {
+        if (response.success && response.data?.token) {
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('isAdmin', response.data.isAdmin.toString());
+          this.loginStatusSubject.next('Sikeres bejelentkezés'); // Sikeres bejelentkezés
+        } else {
+          this.loginStatusSubject.next('Hiba a bejelentkezés során');  // Hibás bejelentkezés
+        }
+      })
+    );
   }
-
+  
   logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('userData');
+    localStorage.removeItem('isAdmin');
+    this.loginStatusSubject.next('Sikeres kijelentkezés');  // Sikeres kijelentkezés
   }
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
-
+  
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  getUserRole(): number {
+    return parseInt(localStorage.getItem('isAdmin') || '0', 10);
+  }  
 }

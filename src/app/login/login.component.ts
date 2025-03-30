@@ -22,17 +22,17 @@ export class LoginComponent {
       (response: any) => {
         console.log("Bejelentkezési válasz:", response);
 
-        if (response.success && response.data && response.data.token) {
+        if (response.success && response.data?.token) {
           localStorage.setItem('token', response.data.token);
-          console.log("Token elmentve:", localStorage.getItem('token'));
-          
-          this.successMessage = 'Sikeres bejelentkezés!';
+          localStorage.setItem('userData', JSON.stringify(response.data));
+
+          this.successMessage = response.message || 'Sikeres bejelentkezés!';
           this.errorMessage = '';
-          this.router.navigate(['/dashboard']);
 
           setTimeout(() => {
             this.successMessage = '';
-          }, 3000);
+            this.router.navigateByUrl('/home');
+          }, 2000);
         } else {
           this.errorMessage = response.message || 'Bejelentkezés sikertelen';
           this.successMessage = '';
@@ -40,7 +40,7 @@ export class LoginComponent {
       },
       error => {
         console.error("Hiba a bejelentkezéskor:", error);
-        this.errorMessage = error.error.message || 'Hiba történt a bejelentkezés során';
+        this.errorMessage = error.error?.message || 'Hiba történt a bejelentkezés során';
         this.successMessage = '';
       }
     );

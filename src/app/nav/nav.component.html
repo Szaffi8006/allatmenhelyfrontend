@@ -1,80 +1,87 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Állatmenhely</a>
-      
-      <!-- Hamburger Menü -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Menü elemek -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-100">
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="/home" routerLinkActive="active-link">Főoldal</a>
-          </li>
-  
-          <!-- Állatok menü -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="animalsDropdown" role="button" data-bs-toggle="dropdown">
-              Állatok
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="animalsDropdown">
-              <li><a class="dropdown-item" routerLink="/animals/animals">Örökbefogadható állatok</a></li>
-              <li><a class="dropdown-item" routerLink="/animals/search">Keresés</a></li>
-            </ul>
-          </li>
-  
-          <!-- Információk menü -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="infoDropdown" role="button" data-bs-toggle="dropdown">
-              Információk
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="infoDropdown">
-              <li><a class="dropdown-item" routerLink="/information/contact">Elérhetőség</a></li>
-              <li><a class="dropdown-item" routerLink="/information/howitworks">Tudnivalók</a></li>
-            </ul>
-          </li>
-  
-          <!-- Profil menü -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-              Profil
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" routerLink="/profile/favorites">Kedvenceim</a></li>
-              <li><a class="dropdown-item" routerLink="/profile/reservations">Foglalásaim</a></li>
-            </ul>
-          </li>
-  
-                  <!-- Admin menü (csak adminoknak) -->
-                  <li class="nav-item dropdown"> 
-                  <!-- *ngIf="isAdmin" (click)="toggleDropdown()" -->
-                    <a class="nav-link dropdown-toggle" id="adminDropdown" role="button" data-bs-toggle="dropdown">
-                      Admin
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" routerLink="/admin/animals">Állatok kezelése</a></li>
-                      <li><a class="dropdown-item" routerLink="/admin/users">Felhasználók kezelése</a></li>
-                      <li><a class="dropdown-item" routerLink="/admin/adopters">Örökbefogadók kezelése</a></li>
-                      <li><a class="dropdown-item" routerLink="/admin/adoptions">Örökbefogadások kezelése</a></li>
-                      <li><a class="dropdown-item" routerLink="/admin/appointments">Időpontok kezelése</a></li>
-                    </ul>
-                <!-- </li>     -->
-          
-  
-          <!-- Bejelentkezés/Regisztráció gomb -->
-          <li class="nav-item">
-            <a class="nav-link btn" routerLink="/auth">Bejelentkezés / Regisztráció</a>
-          </li>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Állatmenhely</a>
+    
+    <!-- Hamburger Menü -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menü elemek -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-100">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/home" routerLinkActive="active-link">Főoldal</a>
+        </li>
+
+        <!-- Állatok menü -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="animalsDropdown" role="button" data-bs-toggle="dropdown">
+            Állatok
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="animalsDropdown">
+            <li><a class="dropdown-item" routerLink="/animals/animals">Örökbefogadható állatok</a></li>
+            <li><a class="dropdown-item" routerLink="/animals/search">Keresés</a></li>
+          </ul>
+        </li>
+
+        <!-- Információk menü -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="infoDropdown" role="button" data-bs-toggle="dropdown">
+            Információk
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="infoDropdown">
+            <li><a class="dropdown-item" routerLink="/information/contact">Elérhetőség</a></li>
+            <li><a class="dropdown-item" routerLink="/information/howitworks">Tudnivalók</a></li>
+          </ul>
+        </li>
+
+        <!-- Profil menü -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+            Profil
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+            <li><a class="dropdown-item" routerLink="/profile/favorites">Kedvenceim</a></li>
+            <li><a class="dropdown-item" routerLink="/profile/reservations">Foglalásaim</a></li>
+          </ul>
+        </li>
+
+        <!-- Admin menü (csak adminoknak) -->
+        <li *ngIf="authService.getUserRole() >= 1" class="nav-item">
+          <a class="nav-link" routerLink="/admin">Admin</a>
+        </li>
+        
+        <li *ngIf="authService.getUserRole() === 2" class="nav-item">
+          <a class="nav-link" routerLink="/super">Super Admin</a>
+        </li>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" routerLink="/admin/animals">Állatok kezelése</a></li>
+          <li><a class="dropdown-item" routerLink="/admin/users">Felhasználók kezelése</a></li>
+          <li><a class="dropdown-item" routerLink="/admin/adopters">Örökbefogadók kezelése</a></li>
+          <li><a class="dropdown-item" routerLink="/admin/adoptions">Örökbefogadások kezelése</a></li>
+          <li><a class="dropdown-item" routerLink="/admin/appointments">Időpontok kezelése</a></li>
         </ul>
-      </div>
+
+        <!-- Bejelentkezés/Regisztráció gomb -->
+        <li *ngIf="!authService.isLoggedIn()" class="nav-item">
+          <a class="nav-link btn" routerLink="/auth">Bejelentkezés / Regisztráció</a>
+        </li>
+
+        <!-- Kijelentkezés gomb csak bejelentkezett felhasználóknak -->
+        <li *ngIf="authService.isLoggedIn()" class="nav-item">
+          <button (click)="logout()" class="btn btn-danger">Kijelentkezés</button>
+        </li>
+      </ul>
     </div>
-  </nav>
-  
-  <!-- Router Outlet -->
-  <router-outlet></router-outlet>
-  
-  
-  
+  </div>
+</nav>
+
+<!-- Üzenet megjelenítése -->
+<div *ngIf="loginStatus" class="alert alert-info">
+  {{ loginStatus }}
+</div>
+
+<!-- Router Outlet -->
+<router-outlet></router-outlet>

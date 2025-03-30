@@ -2,6 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AdminAdoptersComponent } from './admin.adopters/admin.adopters.component';
 import { AdminAdoptionsComponent } from './admin.adoptions/admin.adoptions.component';
@@ -14,13 +15,16 @@ import { SearchComponent } from './search/search.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthGuardService } from './auth.guard.service';
+import { AuthGuardService, AdminGuardService, SuperGuardService } from './auth.guard.service';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "", redirectTo: "home", pathMatch: "full" }, 
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuardService] },
+  { path: 'super', component: AdminComponent, canActivate: [SuperGuardService] },
   { path: "auth", component: AuthComponent },        
   { path: "login", component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: "registration", component: RegistrationComponent },
 
   { 
