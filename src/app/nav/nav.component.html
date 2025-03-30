@@ -48,21 +48,19 @@
           </ul>
         </li>
 
-        <!-- Admin menü (csak adminoknak) -->
-        <li *ngIf="authService.getUserRole() >= 1" class="nav-item">
-          <a class="nav-link" routerLink="/admin">Admin</a>
-        </li>
-        
-        <li *ngIf="authService.getUserRole() === 2" class="nav-item">
-          <a class="nav-link" routerLink="/super">Super Admin</a>
-        </li>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" routerLink="/admin/animals">Állatok kezelése</a></li>
-          <li><a class="dropdown-item" routerLink="/admin/users">Felhasználók kezelése</a></li>
-          <li><a class="dropdown-item" routerLink="/admin/adopters">Örökbefogadók kezelése</a></li>
-          <li><a class="dropdown-item" routerLink="/admin/adoptions">Örökbefogadások kezelése</a></li>
-          <li><a class="dropdown-item" routerLink="/admin/appointments">Időpontok kezelése</a></li>
-        </ul>
+        <!-- Admin/Super Admin menü -->
+        <li *ngIf="authService.getUserRole() >= 1" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Admin Menü
+        </a>
+  
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/admin/animals">Állatok kezelése</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/users">Felhasználók kezelése</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/adopters">Örökbefogadók kezelése</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/adoptions">Örökbefogadások kezelése</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/appointments">Időpontok kezelése</a></li>
+          </ul>
 
         <!-- Bejelentkezés/Regisztráció gomb -->
         <li *ngIf="!authService.isLoggedIn()" class="nav-item">
