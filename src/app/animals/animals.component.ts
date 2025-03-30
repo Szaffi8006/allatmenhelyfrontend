@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../auth.service';  // Hozzá kell adni az auth szolgáltatást
+import { AnimalService } from '../animal.service';
+import { FavoriteService } from '../favorite.service';  
+import { AppointmentService } from '../appointment.service';  
 
 @Component({
   selector: 'app-animals',
@@ -8,38 +9,71 @@ import { AuthService } from '../auth.service';  // Hozzá kell adni az auth szol
   styleUrls: ['./animals.component.css']
 })
 export class AnimalsComponent implements OnInit {
-  animals: any[] = [];
-  userLoggedIn: boolean = false;  // Ellenőrzi, hogy a felhasználó be van-e jelentkezve
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  animals: any[] = [];  // Örökbefogadható állatok listája
+
+  constructor(
+    private animalService: AnimalService,
+    private favoriteService: FavoriteService,
+    private appointmentService: AppointmentService  
+  ) {}
 
   ngOnInit(): void {
-    this.loadAnimals();
-    this.userLoggedIn = this.authService.isLoggedIn();  // Ellenőrzi, hogy be van-e jelentkezve a felhasználó
+    this.loadAdoptableAnimals();  
   }
 
-  loadAnimals() {
-    this.http.get('http://localhost:8000/api/adoptable').subscribe((data: any) => {
-      this.animals = data;
-    });
+  // Örökbefogadható állatok betöltése
+  loadAdoptableAnimals(): void {
+    this.animalService.getAdoptableAnimals().subscribe(
+      (response: any) => {
+        console.log('Kapott válasz:', response);
+        if (Array.isArray(response)) {
+          this.animals = response.map(animal => ({
+            ...animal,
+            isFavorite: false // Kezdetben minden állat nincs kedvencként jelölve
+          }));
+        } else {
+          console.error('Hibás válaszformátum:', response);
+        }
+      },
+      (error) => {
+        console.error('Hiba az állatok betöltésekor:', error);
+      }
+    );
   }
 
-  toggleFavorite(animalId: number) {
-    if (this.userLoggedIn) {
-      // Kedvenc hozzáadása vagy eltávolítása
-      // Ezt a funkciót az API-hoz is hozzá kell adni, hogy frissítse a kedvencek listáját
-      console.log(`Toggle favorite for animal with ID: ${animalId}`);
+  // Toggle kedvenc hozzáadása vagy eltávolítása
+  toggleFavorite(animal: any): void {
+    if (animal.isFavorite) {
+      // Kedvenc törlése ID alapján
+      this.favoriteService.removeFavorite(animal.id).subscribe(
+        () => {
+          animal.isFavorite = false;
+          console.log(`Kedvenc törölve: ${animal.name}`);
+        },
+        error => console.error('Hiba a kedvenc törlésénél:', error)
+      );
     } else {
-      alert("Be kell jelentkezned, hogy kedvencet adhass hozzá!");
+      // Kedvencként jelölés NÉV alapján
+      this.favoriteService.addFavorite(animal.name).subscribe(
+        response => {
+          animal.isFavorite = true;
+          console.log(response.message); // Backend üzenet kiírása
+        },
+        error => console.error('Hiba a kedvenc hozzáadásánál:', error)
+      );
     }
   }
 
-  bookAppointment(animalId: number) {
-    if (this.userLoggedIn) {
-      // Időpontfoglalás logika
-      console.log(`Booking appointment for animal with ID: ${animalId}`);
-    } else {
-      alert("Be kell jelentkezned, hogy időpontot foglalhass!");
-    }
+  // Időpontfoglalás függvény
+  bookAppointment(animal: any, date: string): void {
+    this.appointmentService.bookAppointment(animal.id, date).subscribe(
+      response => {
+        console.log('Időpont foglalva:', response);
+      },
+      error => {
+        console.error('Hiba az időpontfoglalásnál:', error);
+      }
+    );
   }
 }

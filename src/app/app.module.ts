@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from '../auth.interceptor';
 import { NavComponent } from './nav/nav.component';
 import { AnimalsComponent } from './animals/animals.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -20,7 +21,7 @@ import { AdminAppointmentsComponent } from './admin.appointments/admin.appointme
 import { AdminAdoptersComponent } from './admin.adopters/admin.adopters.component';
 import { AdminAdoptionsComponent } from './admin.adoptions/admin.adoptions.component';
 import { SearchComponent } from './search/search.component';
-import { FavouritesComponent } from './favourites/favourites.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -43,10 +44,11 @@ import { LogoutComponent } from './logout/logout.component';
     AdminAdoptersComponent,
     AdminAdoptionsComponent,
     SearchComponent,
-    FavouritesComponent,
+    FavoritesComponent,
     AppointmentsComponent,
     AuthComponent,
-    LogoutComponent
+    LogoutComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,12 @@ import { LogoutComponent } from './logout/logout.component';
     NgbModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, 
+    useClass: AuthInterceptor,  
+    multi: true,                
+  },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

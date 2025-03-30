@@ -12,7 +12,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminUsersComponent } from './admin.users/admin.users.component';
 import { AnimalsComponent } from './animals/animals.component';
 import { SearchComponent } from './search/search.component';
-import { FavouritesComponent } from './favourites/favourites.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService, AdminGuardService, SuperGuardService } from './auth.guard.service';
@@ -40,7 +40,7 @@ const routes: Routes = [
   { 
     path: "information",
     children: [
-      { path: "contact", component: FavouritesComponent },
+      { path: "contact", component: FavoritesComponent },
       { path: "howitworks", component: AppointmentsComponent }
     ]
   },
@@ -49,7 +49,7 @@ const routes: Routes = [
     path: "profile",
     canActivate: [AuthGuardService],  
     children: [
-      { path: "favorites", component: FavouritesComponent },
+      { path: "favorites", component: FavoritesComponent },
       { path: "reservations", component: AppointmentsComponent }
     ]
   },

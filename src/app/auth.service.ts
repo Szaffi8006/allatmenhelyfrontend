@@ -50,4 +50,9 @@ export class AuthService {
   getUserRole(): number {
     return parseInt(localStorage.getItem('isAdmin') || '0', 10);
   }  
+
+  getUserId(): number | null {
+    return parseInt(localStorage.getItem('userId') || '0', 10);
+  }
+
 }
