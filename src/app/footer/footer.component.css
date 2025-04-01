@@ -3,106 +3,12 @@
     width: auto;
 }
 
-@media (min-width: 0px), (max-width: 576px) {
-    .col-6 {
-      flex: 0 0 100%;
-      max-width: 100%;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .col-md4 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .col-lg-3 {
-        flex: 0 0 33.3333333333%;
-        max-width: 33.3333333333%;
-    }
-  }
-  
-@media only screen and (min-width: 992px) {
-    .g10-xl-2 {
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-}
-
-  @media (min-width: 0px) {
-    .container-sm, .container {
-        max-width: 450px;
-    }
-  }
-  
-  @media (min-width: 576px) {
-    .container-sm, .container {
-        max-width: 540px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .container-md, .container-sm, .container {
-        max-width: 720px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .container-lg, .container-md, .container-sm, .container {
-        max-width: 960px;
-    }
-  }
-  
-  @media only screen and (min-width: 1260px) {
-    :root {
-        --container: $container-xl;
-    }
-  }
-  
-  @media (min-width: 1260px) {
-    .container-xl, .container-lg, .container-md, .container-sm, .container {
-        max-width: 1232px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .p-lg-0 {
-        padding: 0 !important;
-    }
-  }
-
-.container, .container-fluid, .container-xl, .container-lg, .container-md, .container-sm {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
 footer {
     margin-top: 2.5rem;
     font-size: .875rem;
-    padding: 0;
-    position: relative;
-    z-index: 1;
-    max-height: max-content;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    margin-right: -.75rem;
-    margin-left: -.75rem;
-}
-
-h4 {
-    margin-bottom: .75rem;
-}
-
-.footer-menu {
+    padding: 20px;
     background: #fff;
-    padding-top: 2re;
+    text-align: center;
 }
 
 .footer-menu-items, .footer-connects {
@@ -113,49 +19,16 @@ h4 {
 
 .footer-credits {
     background: #fff;
+    padding: 10px;
 }
 
 .footer-credits-inner {
     display: flex;
+    flex-direction: column;
     align-items: center;
-}
-
-.footer-connect-item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: .5rem;
-}
-
-.footer-menu-item {
-    margin-bottom: .5rem;
-}
-
-.connect-item {
-    margin-bottom: 0;
-}
-
-.bi {
-    margin-right: .5rem;
-}
-
-.row, .footer-texts {
-    padding: 1.5rem;
 }
 
 .all-rights {
     font-weight: 600;
     margin-bottom: .5rem;
-}
-
-.made-by {
-    font-size: .688rem;
-}
-
-img {
-    border: 0;
-    max-width: 100%;
-    vertical-align: middle;
-    overflow-clip-margin: content-box;
-    overflow: clip;
 }
