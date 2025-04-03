@@ -1,1 +1,85 @@
-<p>search works!</p>
+<div class="search-container">
+    <h2>Állatok keresése</h2>
+  
+    <!-- Keresési paraméterek beállítása -->
+    <form (ngSubmit)="onSearch()">
+      <label for="type">Típus:</label>
+      <select id="type" [(ngModel)]="searchParams.type" name="type">
+        <option value="">Bármilyen</option>
+        <option value="kutya">Kutya</option>
+        <option value="macska">Macska</option>
+        <!-- További típusok -->
+      </select>
+  
+      <label for="gender">Neme:</label>
+      <select id="gender" [(ngModel)]="searchParams.gender" name="gender">
+        <option value="">Bármilyen</option>
+        <option value="hím">Hím</option>
+        <option value="nőstény">Nőstény</option>
+      </select>
+  
+      <label for="size">Méret:</label>
+      <select id="size" [(ngModel)]="searchParams.size" name="size">
+        <option value="">Bármilyen</option>
+        <option value="kicsi">Kicsi</option>
+        <option value="közepes">Közepes</option>
+        <option value="nagy">Nagy</option>
+      </select>
+  
+      <label for="age">Kor:</label>
+      <select id="age" [(ngModel)]="searchParams.age" name="age">
+        <option value="">Bármilyen</option>
+        <option value="kölyök">Kölyök</option>
+        <option value="felnőtt">Felnőtt</option>
+        <option value="idős">Idős</option>
+      </select>
+  
+      <button type="submit">Keresés</button>
+    </form>
+  
+    <div class="container">
+        <div class="row">
+          <div *ngFor="let animal of animals" class="col-md-4 mb-4">
+            <div class="card">
+              <!-- Állat képe -->
+              <img [src]="animal.image" class="card-img-top" [alt]="animal.name">
+              <div class="card-body">
+                <!-- Állat neve -->
+                <h5 class="card-title">{{ animal.name }}</h5>
+                
+                <!-- Állat leírása -->
+                <p class="card-text">{{ animal.description }}</p>
+      
+                <!-- Állat születési ideje és bekerülés dátuma -->
+                <p><strong>Becsült születési ideje:</strong> {{ animal.date_of_birth }}</p>
+                <p><strong>Bekerülés dátuma:</strong> {{ animal.date_of_admission }}</p>
+      
+                <!-- Kedvenc gomb
+                <button class="btn" 
+                        [ngClass]="animal.isFavorite ? 'btn-danger' : 'btn-outline-danger'" 
+                        (click)="toggleFavorite(animal)">
+                  <i class="bi" [ngClass]="animal.isFavorite ? 'bi-heart-fill' : 'bi-heart'"></i>
+                  {{ animal.isFavorite ? 'Kedvencből törlés' : 'Kedvencekhez adás' }}
+                </button> -->
+      
+                <!-- Időpontfoglalás -->
+                <!-- <div class="mt-3">
+                  <input type="date" class="form-control" #dateInput>
+                  <input type="time" class="form-control" #timeInput step="1800">
+                  <button class="btn btn-primary mt-2" (click)="bookAppointment(animal, dateInput.value, timeInput.value)">
+                    Időpont foglalása
+                  </button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  
+    <!-- Ha nincs találat -->
+    <div *ngIf="animals.length === 0">
+      <p>Nincs a keresésednek megfelelő állat.</p>
+    </div>
+  </div>
+  

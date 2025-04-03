@@ -1,1 +1,53 @@
-<p>admin.animals works!</p>
+<!-- admin.animals.component.html -->
+<div class="container">
+    <h2>Új állat hozzáadása</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Név:</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="newAnimal.name" name="name" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="type">Típus:</label>
+        <input type="text" class="form-control" id="type" [(ngModel)]="newAnimal.type" name="type" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="size">Méret:</label>
+        <input type="text" class="form-control" id="size" [(ngModel)]="newAnimal.size" name="size" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="date_of_birth">Születési idő:</label>
+        <input type="date" class="form-control" id="date_of_birth" [(ngModel)]="newAnimal.date_of_birth" name="date_of_birth" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="date_of_admission">Felvétel dátuma:</label>
+        <input type="date" class="form-control" id="date_of_admission" [(ngModel)]="newAnimal.date_of_admission" name="date_of_admission" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Leírás:</label>
+        <textarea class="form-control" id="description" [(ngModel)]="newAnimal.description" name="description" required></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="gender">Nem:</label>
+        <input type="text" class="form-control" id="gender" [(ngModel)]="newAnimal.gender" name="gender" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="image">Kép URL:</label>
+        <input type="text" class="form-control" id="image" [(ngModel)]="newAnimal.image" name="image" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="adopted">Örökbefogadott?</label>
+        <input type="checkbox" id="adopted" [(ngModel)]="newAnimal.adopted" name="adopted">
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Hozzáadás</button>
+    </form>
+  </div>
+  

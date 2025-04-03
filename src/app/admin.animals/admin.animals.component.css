@@ -1,0 +1,22 @@
+.animal-item {
+    margin-bottom: 20px;
+  }
+  
+  .animal-img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  button {
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  button.btn {
+    margin-top: 10px;
+  }
+  
