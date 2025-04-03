@@ -1,53 +1,95 @@
-<!-- admin.animals.component.html -->
 <div class="container">
     <h2>Új állat hozzáadása</h2>
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Név:</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="newAnimal.name" name="name" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="type">Típus:</label>
-        <input type="text" class="form-control" id="type" [(ngModel)]="newAnimal.type" name="type" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="size">Méret:</label>
-        <input type="text" class="form-control" id="size" [(ngModel)]="newAnimal.size" name="size" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="date_of_birth">Születési idő:</label>
-        <input type="date" class="form-control" id="date_of_birth" [(ngModel)]="newAnimal.date_of_birth" name="date_of_birth" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="date_of_admission">Felvétel dátuma:</label>
-        <input type="date" class="form-control" id="date_of_admission" [(ngModel)]="newAnimal.date_of_admission" name="date_of_admission" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="description">Leírás:</label>
-        <textarea class="form-control" id="description" [(ngModel)]="newAnimal.description" name="description" required></textarea>
-      </div>
-  
-      <div class="form-group">
-        <label for="gender">Nem:</label>
-        <input type="text" class="form-control" id="gender" [(ngModel)]="newAnimal.gender" name="gender" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="image">Kép URL:</label>
-        <input type="text" class="form-control" id="image" [(ngModel)]="newAnimal.image" name="image" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="adopted">Örökbefogadott?</label>
-        <input type="checkbox" id="adopted" [(ngModel)]="newAnimal.adopted" name="adopted">
-      </div>
-  
-      <button type="submit" class="btn btn-primary">Hozzáadás</button>
+    <form (ngSubmit)="onSubmit()" #animalForm="ngForm">
+        <div class="form-group">
+            <label for="name">Név:</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="newAnimal.name" name="name" required #name="ngModel">
+            <div *ngIf="name.invalid && name.touched" class="text-danger">A név mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Típus:</label>
+            <input type="text" class="form-control" id="type" [(ngModel)]="newAnimal.type" name="type" required #type="ngModel">
+            <div *ngIf="type.invalid && type.touched" class="text-danger">A típus mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="size">Méret:</label>
+            <input type="text" class="form-control" id="size" [(ngModel)]="newAnimal.size" name="size" required #size="ngModel">
+            <div *ngIf="size.invalid && size.touched" class="text-danger">A méret mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="date_of_birth">Születési idő:</label>
+            <input type="date" class="form-control" id="date_of_birth" [(ngModel)]="newAnimal.date_of_birth" name="date_of_birth" required #dob="ngModel">
+            <div *ngIf="dob.invalid && dob.touched" class="text-danger">A születési idő mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="date_of_admission">Felvétel dátuma:</label>
+            <input type="date" class="form-control" id="date_of_admission" [(ngModel)]="newAnimal.date_of_admission" name="date_of_admission" required #admission="ngModel">
+            <div *ngIf="admission.invalid && admission.touched" class="text-danger">A felvétel dátuma mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Leírás:</label>
+            <textarea class="form-control" id="description" [(ngModel)]="newAnimal.description" name="description" required #description="ngModel"></textarea>
+            <div *ngIf="description.invalid && description.touched" class="text-danger">A leírás mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Nem:</label>
+            <input type="text" class="form-control" id="gender" [(ngModel)]="newAnimal.gender" name="gender" required #gender="ngModel">
+            <div *ngIf="gender.invalid && gender.touched" class="text-danger">A nem mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Kép URL:</label>
+            <input type="text" class="form-control" id="image" [(ngModel)]="newAnimal.image" name="image" required #image="ngModel">
+            <div *ngIf="image.invalid && image.touched" class="text-danger">A kép URL mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="adopted">Örökbefogadott?</label>
+            <input type="checkbox" id="adopted" [(ngModel)]="newAnimal.adopted" name="adopted">
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="animalForm.invalid">Hozzáadás</button>
     </form>
-  </div>
-  
+</div>
+
+<!-- 📌 Állatok listája szerkesztéssel és törléssel -->
+<div class="container mt-5">
+    <h2>Állatok listája</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kép</th>
+                <th>Név</th>
+                <th>Típus</th>
+                <th>Méret</th>
+                <th>Születési idő</th>
+                <th>Leírás</th>
+                <th>Nem</th>
+                <th>Örökbefogadott</th>
+                <th>Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let animal of animals">
+                <td><img [src]="animal.image || 'default-image-url.jpg'" alt="{{animal.name}}" class="animal-img"></td>
+                <td><input [(ngModel)]="animal.name" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                <td><input [(ngModel)]="animal.type" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                <td><input [(ngModel)]="animal.size" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                <td><input [(ngModel)]="animal.date_of_birth" type="date" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                <td><textarea [(ngModel)]="animal.description" (ngModelChange)="onEdit(animal)" class="form-control"></textarea></td>
+                <td><input [(ngModel)]="animal.gender" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                <td><input type="checkbox" [(ngModel)]="animal.adopted" (ngModelChange)="onEdit(animal)"></td>
+                <td>
+                    <button class="btn btn-success" (click)="updateAnimal(animal)" [disabled]="!animal.edited">Módosítás</button>
+                    <button class="btn btn-danger" (click)="deleteAnimal(animal.id)">Törlés</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
