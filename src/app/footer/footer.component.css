@@ -1,25 +1,41 @@
-.footer-logo img {
-    max-height: 120px;
-    width: auto;
-}
-
+/* Footer container */
 footer {
     margin-top: 2.5rem;
-    font-size: .875rem;
+    font-size: 0.875rem;
     padding: 20px;
-    background: #fff;
-    text-align: center;
+    background-color: #f8f9fa; 
+    color: #333; 
+    display: flex;
+    justify-content: space-between; /* Tartalom elosztása */
+    align-items: center; /* Függőleges középre igazítás */
+    text-align: left;
 }
 
-.footer-menu-items, .footer-connects {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* Logo és kapcsolatok blokk */
+.footer-menu {
+    display: flex;
+    justify-content: space-between;
+    width: 60%; /* A bal oldali rész */
 }
 
+/* Kapcsolati szekció */
+.footer-connects {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+}
+
+/* Kép a jobb oldalon */
+.footer-image {
+    max-width: 200px; /* Kép szélesség */
+    height: auto;
+    margin-left: 20px;
+}
+
+/* Credits szekció */
 .footer-credits {
-    background: #fff;
+    background-color: #fff;
     padding: 10px;
+    border-top: 1px solid #ddd;
 }
 
 .footer-credits-inner {
@@ -30,5 +46,9 @@ footer {
 
 .all-rights {
     font-weight: 600;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
+}
+
+.made-by {
+    font-size: 0.75rem;
 }
