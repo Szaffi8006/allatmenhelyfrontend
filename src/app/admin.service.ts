@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,18 @@ export class AdminService {
 
   private baseUrl = 'http://localhost:8000/api';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
+
+    // Token és Authorization header készítése
+    private getHeaders(): HttpHeaders {
+      const token = localStorage.getItem('token');  // Token lekérése a localStorage-ból
+      if (!token) {
+        // Ha nincs token, akkor átirányítjuk a bejelentkezési oldalra
+        this.router.navigate(['/login']);
+        throw new Error('Admin jogosultság szükséges!');
+      }
+      return new HttpHeaders().set('Authorization', `Bearer ${token}`);  // Header beállítása
+    }
 
   // Az összes állat lekérése
   getAnimals(): Observable<any[]> {
