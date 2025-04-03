@@ -26,11 +26,10 @@ export class FavoriteService {
 
   // Kedvenc hozzáadása
   addFavorite(name: string): Observable<any> {
-    // Az addFavorite metódus egyszerűsített adatküldés a backend felé
+    // Az addFavorite metódus most a name értéket küldi el
     return this.http.post(`${this.apiUrl}/addfavorite`, { name }, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
-          // Hibakezelés: ha nem sikerült a kérés, vagy más probléma lépett fel
           console.error('Hiba történt: ', error);
           return throwError(error);
         })
@@ -42,8 +41,18 @@ export class FavoriteService {
     return this.http.delete(`${this.apiUrl}/removefavorite/${animalId}`, { headers: this.getHeaders() })
       .pipe(
         catchError((error) => {
-          // Hibakezelés
           console.error('Hiba történt: ', error);
+          return throwError(error);
+        })
+      );
+  }
+
+  // Kedvencek lekérése
+  getFavorites(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getfavorites`, { headers: this.getHeaders() })
+      .pipe(
+        catchError((error) => {
+          console.error('Hiba történt a kedvencek lekérésekor:', error);
           return throwError(error);
         })
       );

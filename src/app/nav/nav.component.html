@@ -38,7 +38,7 @@
         </li>
 
         <!-- Profil menü -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="isLoggedIn">
           <a class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown">
             Profil
           </a>
@@ -49,11 +49,10 @@
         </li>
 
         <!-- Admin/Super Admin menü -->
-        <li *ngIf="authService.getUserRole() >= 1" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Admin Menü
-        </a>
-  
+        <li *ngIf="userRole >= 1" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin Menü
+          </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" routerLink="/admin/animals">Állatok kezelése</a></li>
             <li><a class="dropdown-item" routerLink="/admin/users">Felhasználók kezelése</a></li>
@@ -61,14 +60,15 @@
             <li><a class="dropdown-item" routerLink="/admin/adoptions">Örökbefogadások kezelése</a></li>
             <li><a class="dropdown-item" routerLink="/admin/appointments">Időpontok kezelése</a></li>
           </ul>
+        </li>
 
         <!-- Bejelentkezés/Regisztráció gomb -->
-        <li *ngIf="!authService.isLoggedIn()" class="nav-item">
+        <li *ngIf="!isLoggedIn" class="nav-item">
           <a class="nav-link btn" routerLink="/auth">Bejelentkezés / Regisztráció</a>
         </li>
 
         <!-- Kijelentkezés gomb csak bejelentkezett felhasználóknak -->
-        <li *ngIf="authService.isLoggedIn()" class="nav-item">
+        <li *ngIf="isLoggedIn" class="nav-item">
           <button (click)="logout()" class="btn btn-danger">Kijelentkezés</button>
         </li>
       </ul>
