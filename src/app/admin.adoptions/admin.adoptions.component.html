@@ -1,1 +1,66 @@
-<p>admin.adoptions works!</p>
+<!-- Örökbefogadott állatok listája -->
+<div *ngIf="adoptions.length === 0">
+    <p>Nincsenek örökbefogadott állatok.</p>
+  </div>
+  
+  <div *ngIf="adoptions.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Állat neve</th>
+          <th>Örökbefogadó neve</th>
+          <th>Örökbefogadás dátuma</th>
+          <th>Funkció</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let adoption of adoptions">
+          <td>{{ adoption.animal_name }}</td>
+          <td>{{ adoption.adopter_name }}</td>
+          <td>{{ adoption.date_of_adoption | date:'shortDate' }}</td>
+          <td>
+            <button (click)="selectAdoption(adoption)">Módosítás</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Új örökbefogadás felvétele -->
+  <h3>Új örökbefogadás</h3>
+  <form (ngSubmit)="addAdoption()">
+    <label for="animal">Állat:</label>
+    <select id="animal" [(ngModel)]="newAdoption.animal_name" name="animal_name">
+      <option *ngFor="let animal of animals" [value]="animal.name">{{ animal.name }}</option>
+    </select>
+  
+    <label for="adopter">Örökbefogadó:</label>
+    <select id="adopter" [(ngModel)]="newAdoption.adopter_name" name="adopter_name">
+      <option *ngFor="let adopter of adopters" [value]="adopter.name">{{ adopter.name }}</option>
+    </select>
+  
+    <label for="date_of_adoption">Örökbefogadás dátuma:</label>
+    <input type="date" [(ngModel)]="newAdoption.date_of_adoption" name="date_of_adoption" required>
+  
+    <button type="submit">Örökbefogadás hozzáadása</button>
+  </form>
+  
+  <!-- Örökbefogadás módosítása -->
+  <h3>Örökbefogadás módosítása</h3>
+  <form *ngIf="selectedAdoption" (ngSubmit)="updateAdoption()">
+    <label for="animal">Állat:</label>
+    <select id="animal" [(ngModel)]="selectedAdoption.animal_name" name="animal_name" required>
+      <option *ngFor="let animal of animals" [value]="animal.name">{{ animal.name }}</option>
+    </select>
+  
+    <label for="adopter">Örökbefogadó:</label>
+    <select id="adopter" [(ngModel)]="selectedAdoption.adopter_name" name="adopter_name" required>
+      <option *ngFor="let adopter of adopters" [value]="adopter.name">{{ adopter.name }}</option>
+    </select>
+  
+    <label for="date_of_adoption">Örökbefogadás dátuma:</label>
+    <input type="date" [(ngModel)]="selectedAdoption.date_of_adoption" name="date_of_adoption" required>
+  
+    <button type="submit">Módosítás</button>
+  </form>
+  

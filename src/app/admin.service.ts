@@ -97,6 +97,21 @@ export class AdminService {
     addAdopter(adopter: { name: string, phone_number: string, e_mail: string, city: string }): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/newadopter`, adopter, { headers: this.getHeaders() });
     }
-  
+    
+    //Örökbefogadások lekérdezése
+    getAdoptions(): Observable<any> {
+      return this.http.get(`${this.baseUrl}/adoptions`);
+    }
+    
+    //Új örökbefogadás
+    addAdoption(adoption: any): Observable<any> {
+      return this.http.post(`${this.baseUrl}/newadoption`, adoption);
+    }
+    
+    //Örökbefogadás módosítása
+    updateAdoption(adoption: any, updatedData: { animal_name: any; adopter_name: any; date_of_adoption: any; }): Observable<any> {
+      // Itt a 'updatedData' tartalmazza a frissített adatokat
+      return this.http.put(`${this.baseUrl}/updateadoption`, updatedData); // 'updatedData'-t küldjük a szerverre
+    }    
 
 }
