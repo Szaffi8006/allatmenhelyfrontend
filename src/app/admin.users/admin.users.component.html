@@ -1,8 +1,8 @@
-<div>
-    <h2>Users Management</h2>
+<div class="container mt-5">
+    <h2>Felhasználókezelés</h2>
   
     <!-- Felhasználók listája -->
-    <table>
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Name</th>
@@ -17,30 +17,39 @@
           <td>{{ user.email }}</td>
           <td>{{ user.admin == 1 ? 'Admin' : 'User' }}</td>
           <td>
-            <button (click)="selectedUser = user">Edit</button>
-            <button (click)="giveAdminRights()">Make Admin</button>
+            <button class="btn btn-warning" (click)="selectedUser = user">Szerkesztés</button>
+            <button class="btn btn-success" (click)="giveAdminRights()">Admin jog beállítása</button>
           </td>
         </tr>
       </tbody>
     </table>
   
     <!-- Felhasználó szerkesztése -->
-    <div *ngIf="selectedUser">
-      <h3>Edit User</h3>
-      <label>Name:</label>
-      <input [(ngModel)]="selectedUser.name" />
-      <label>Email:</label>
-      <input [(ngModel)]="selectedUser.email" />
-      <button (click)="updateUser()">Save</button>
+    <div *ngIf="selectedUser" class="card mt-4 p-3">
+      <h3>Felhasznnálók</h3>
+      <form (ngSubmit)="updateUser()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input id="name" class="form-control" [(ngModel)]="selectedUser.name" name="name" />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input id="email" class="form-control" [(ngModel)]="selectedUser.email" name="email" />
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </form>
     </div>
   
     <!-- Admin jogosultság adása -->
-    <div>
-      <h3>Make User an Admin</h3>
-      <label>Username:</label>
-      <input [(ngModel)]="usernameToMakeAdmin" />
-      <button (click)="giveAdminRights()">Give Admin Rights</button>
+    <div class="card mt-4 p-3">
+      <h3>Admin jog kezelése</h3>
+      <form (ngSubmit)="giveAdminRights()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Felhasználónév:</label>
+          <input id="username" type="text" class="form-control" [(ngModel)]="usernameToMakeAdmin" name="username" required />
+        </div>
+        <button class="btn btn-info" type="submit">Admin jog megadása</button>
+      </form>
     </div>
-  
-</div>
+  </div>
   
