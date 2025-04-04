@@ -1,1 +1,46 @@
-<p>admin.users works!</p>
+<div>
+    <h2>Users Management</h2>
+  
+    <!-- Felhasználók listája -->
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Admin Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.admin == 1 ? 'Admin' : 'User' }}</td>
+          <td>
+            <button (click)="selectedUser = user">Edit</button>
+            <button (click)="giveAdminRights()">Make Admin</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Felhasználó szerkesztése -->
+    <div *ngIf="selectedUser">
+      <h3>Edit User</h3>
+      <label>Name:</label>
+      <input [(ngModel)]="selectedUser.name" />
+      <label>Email:</label>
+      <input [(ngModel)]="selectedUser.email" />
+      <button (click)="updateUser()">Save</button>
+    </div>
+  
+    <!-- Admin jogosultság adása -->
+    <div>
+      <h3>Make User an Admin</h3>
+      <label>Username:</label>
+      <input [(ngModel)]="usernameToMakeAdmin" />
+      <button (click)="giveAdminRights()">Give Admin Rights</button>
+    </div>
+  
+</div>
+  

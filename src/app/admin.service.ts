@@ -62,4 +62,27 @@ export class AdminService {
   deleteAnimal(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/deleteanimal/${id}`);
   }
+
+  // Az összes felhasználó lekérése
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/users`, { headers: this.getHeaders() });
+  }
+
+  // Egy felhasználó lekérése
+  getUser(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/user?id=${id}`, { headers: this.getHeaders() });
+  }
+
+  // Felhasználó frissítése
+  updateUser(user: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/updateuser`, user, { headers: this.getHeaders() });
+  }
+
+  // Admin jogosultság adása egy felhasználónak
+  giveAdmin(username: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin`, { name: username }, { headers: this.getHeaders() });
+  }
+
+
+
 }
