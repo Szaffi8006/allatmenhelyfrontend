@@ -1,1 +1,77 @@
-<p>admin.adopters works!</p>
+<div class="container mt-5">
+    <h2>Örökbefogadók listája</h2>
+  
+    <!-- Örökbefogadók listája -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Név</th>
+          <th>Email</th>
+          <th>Telefonszám</th>
+          <th>Város</th>
+          <th>Funkciók</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let adopter of adopters">
+          <td>{{ adopter.name }}</td>
+          <td>{{ adopter.e_mail }}</td>
+          <td>{{ adopter.phone_number }}</td>
+          <td>{{ adopter.city }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="selectAdopter(adopter)">Szerkesztés</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+      <!-- Örökbefogadó szerkesztése -->
+      <div *ngIf="selectedAdopter" class="card mt-4 p-3">
+        <h3>Örökbefogadó szerkesztése</h3>
+        <form (ngSubmit)="updateAdopter()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Név:</label>
+            <input id="name" class="form-control" [(ngModel)]="selectedAdopter.name" name="name" required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input id="email" class="form-control" [(ngModel)]="selectedAdopter.e_mail" name="email" required />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Telefonszám:</label>
+            <input id="phone" class="form-control" [(ngModel)]="selectedAdopter.phone_number" name="phone" required />
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">Város:</label>
+            <input id="city" class="form-control" [(ngModel)]="selectedAdopter.city" name="city" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Mentés</button>
+        </form>
+      </div>
+    
+
+      <!-- Új örökbefogadó hozzáadása -->
+  <div class="card mt-4 p-3">
+    <h3>Új örökbefogadó hozzáadása</h3>
+    <form (ngSubmit)="addAdopter()">
+      <div class="mb-3">
+        <label for="newName" class="form-label">Név:</label>
+        <input id="newName" class="form-control" [(ngModel)]="newAdopter.name" name="name" required />
+      </div>
+      <div class="mb-3">
+        <label for="newEmail" class="form-label">Email:</label>
+        <input id="newEmail" class="form-control" [(ngModel)]="newAdopter.e_mail" name="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="newPhone" class="form-label">Telefonszám:</label>
+        <input id="newPhone" class="form-control" [(ngModel)]="newAdopter.phone_number" name="phone" required />
+      </div>
+      <div class="mb-3">
+        <label for="newCity" class="form-label">Város:</label>
+        <input id="newCity" class="form-control" [(ngModel)]="newAdopter.city" name="city" required />
+      </div>
+      <button class="btn btn-success" type="submit">Hozzáadás</button>
+    </form>
+  </div>
+ </div>
+  

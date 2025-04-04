@@ -83,6 +83,20 @@ export class AdminService {
     return this.http.post<any>(`${this.baseUrl}/admin`, { name: username }, { headers: this.getHeaders() });
   }
 
-
+    // Örökbefogadók listázása
+    getAdopters(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.baseUrl}/adopters`, { headers: this.getHeaders() });
+    }
+  
+    // Örökbefogadó frissítése
+    updateAdopter(adopter: any): Observable<any> {
+      return this.http.put<any>(`${this.baseUrl}/updateadopter`, adopter, { headers: this.getHeaders() });
+    }
+  
+    // Új örökbefogadó hozzáadása
+    addAdopter(adopter: { name: string, phone_number: string, e_mail: string, city: string }): Observable<any> {
+      return this.http.post<any>(`${this.baseUrl}/newadopter`, adopter, { headers: this.getHeaders() });
+    }
+  
 
 }
