@@ -15,8 +15,7 @@
         <tr *ngFor="let user of users">
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.admin == 1 ? 'Admin' : 'User' }}</td>
-          <td>
+          <td>{{ user.admin === 1 ? 'Admin' : (user.admin === 2 ? 'Super Admin' : 'User') }}<td>
             <button class="btn btn-warning" (click)="selectedUser = user">Szerkesztés</button>
             <button class="btn btn-success" (click)="giveAdminRights()">Admin jog beállítása</button>
           </td>
