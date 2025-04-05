@@ -1,62 +1,42 @@
-.auth-container {
-  height: 100vh; 
-  background-color: #e9effa; 
-  display: flex;
-  justify-content: center;  /* Középre igazítja a kártyákat vízszintesen */
-  align-items: center;      /* Középre igazítja a kártyákat függőlegesen */
-  flex-wrap: wrap;          /* Engedélyezi a sorok közötti törést kisebb képernyőkön */
-  padding: 20px;            /* Padding a konténer körül */
-  margin-top: 80px;
-}
-
+/* Az egész kártyás felülethez: */
 .card {
-  border-radius: 15px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1000px; 
-  width: 1000%;             /* Biztosítja, hogy a kártyák ne legyenek szélesebbek */
-  margin: 15px;            /* Kártyák közötti távolság */
-  display: flex;
-  flex-direction: column;  /* A tartalom vertikálisan lesz elrendezve */
-  align-items: center;     /* Kártyák középre igazítása */
-  padding: 20px;           /* Padding a kártyák körül */
+  border-radius: 12px; /* Lekerekített sarkok */
+  background-color: #fff; /* Fehér háttér */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék az elemek körül */
 }
 
-.card-body {
-  width: 100%;  /* Biztosítja, hogy a tartalom kitöltse a kártyát */
-  padding: 0;
-}
-
-h2 {
-  color: black;
+/* Form mezők stílusai */
+.form-group label {
   font-weight: 600;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+  color: #333;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
+/* A beviteli mezőknek is lekerekített sarkok */
 .form-control {
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 10px;
-  width: 100%;    /* Ne legyenek túl szélesek a mezők */
-  margin-top: 5px;
-  border: 1px solid #ced4da; 
 }
 
-button.btn {
-  width: 100%;
-  border-radius: 10px;
-  padding: 12px;
-  background-color: #4458de;
-  color: white;
-  border: none;
-  font-size: 16px;
+/* A gomb színének beállítása */
+.btn-primary {
+  background-color: #007bff; /* Az alap navbar kék árnyalata */
+  border-color: #007bff;
 }
 
-button.btn:hover {
-  background-color: #364fc7;
+/* Hover effektus a gombon */
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* A kártyán belüli cím stílusa */
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff; /* Az alap navbar kék árnyalata */
+}
+
+/* A formok közötti margó */
+.card-body {
+  padding: 30px;
 }

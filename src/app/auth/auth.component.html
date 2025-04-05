@@ -1,109 +1,122 @@
-<div class="auth-container">
-    <h2>Bejelentkezés</h2>
-    <form (ngSubmit)="onLogin()">
-      <div class="form-group">
-        <input
-          type="text"
-          [(ngModel)]="loginData.name"
-          name="name"
-          placeholder="Felhasználónév"
-          required
-          #name="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="name.invalid && name.touched" class="text-danger">
-          A felhasználónév kötelező!
-        </div>
+<div class="auth-container mt=5">
+  <h2>Bejelentkezés</h2>
+  <form (ngSubmit)="onLogin()">
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="loginData.name"
+        name="name"
+        placeholder="Felhasználónév"
+        required
+        #name="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="name.invalid && name.touched" class="text-danger">
+        A felhasználónév kötelező!
       </div>
-  
-      <div class="form-group">
-        <input
-          type="password"
-          [(ngModel)]="loginData.password"
-          name="password"
-          placeholder="Jelszó"
-          required
-          #password="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="password.invalid && password.touched" class="text-danger">
-          A jelszó kötelező!
-        </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        [(ngModel)]="loginData.password"
+        name="password"
+        placeholder="Jelszó"
+        required
+        #password="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="password.invalid && password.touched" class="text-danger">
+        A jelszó kötelező!
       </div>
-  
-      <button type="submit" [disabled]="loginData.name === '' || loginData.password === ''">
-        Bejelentkezés
-      </button>
-    </form>
-  
-    <h2>Regisztráció</h2>
-    <form (ngSubmit)="onRegister()">
-      <div class="form-group">
-        <input
-          type="text"
-          [(ngModel)]="registerData.name"
-          name="name"
-          placeholder="Felhasználónév"
-          required
-          #regName="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="regName.invalid && regName.touched" class="text-danger">
-          A felhasználónév kötelező!
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <input
-          type="email"
-          [(ngModel)]="registerData.email"
-          name="email"
-          placeholder="Email"
-          required
-          #regEmail="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="regEmail.invalid && regEmail.touched" class="text-danger">
-          Érvényes email cím szükséges!
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <input
-          type="password"
-          [(ngModel)]="registerData.password"
-          name="password"
-          placeholder="Jelszó"
-          required
-          #regPassword="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="regPassword.invalid && regPassword.touched" class="text-danger">
-          A jelszó kötelező!
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <input
-          type="password"
-          [(ngModel)]="registerData.confirm_password"
-          name="confirm_password"
-          placeholder="Jelszó megerősítés"
-          required
-          #regConfirmPassword="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="regConfirmPassword.invalid && regConfirmPassword.touched" class="text-danger">
-          A jelszó megerősítése kötelező!
-        </div>
-      </div>
-  
-      <button
-        type="submit"
-        [disabled]="registerData.password !== registerData.confirm_password || registerData.name === '' || registerData.email === '' || registerData.password === ''"
-      >
-        Regisztráció
-      </button>
-    </form>
+    </div>
+
+    <button type="submit" [disabled]="loginData.name === '' || loginData.password === ''">
+      Bejelentkezés
+    </button>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
   </div>
-  
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <h2>Regisztráció</h2>
+  <form (ngSubmit)="onRegister()">
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="registerData.name"
+        name="name"
+        placeholder="Felhasználónév"
+        required
+        #regName="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="regName.invalid && regName.touched" class="text-danger">
+        A felhasználónév kötelező!
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="email"
+        [(ngModel)]="registerData.email"
+        name="email"
+        placeholder="Email"
+        required
+        #regEmail="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="regEmail.invalid && regEmail.touched" class="text-danger">
+        Érvényes email cím szükséges!
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        [(ngModel)]="registerData.password"
+        name="password"
+        placeholder="Jelszó"
+        required
+        #regPassword="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="regPassword.invalid && regPassword.touched" class="text-danger">
+        A jelszó kötelező!
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        [(ngModel)]="registerData.confirm_password"
+        name="confirm_password"
+        placeholder="Jelszó megerősítés"
+        required
+        #regConfirmPassword="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="regConfirmPassword.invalid && regConfirmPassword.touched" class="text-danger">
+        A jelszó megerősítése kötelező!
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="registerData.password !== registerData.confirm_password || registerData.name === '' || registerData.email === '' || registerData.password === ''"
+    >
+      Regisztráció
+    </button>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+</div>
