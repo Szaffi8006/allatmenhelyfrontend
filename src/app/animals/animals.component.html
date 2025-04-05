@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
   <div class="row">
     <div *ngFor="let animal of animals" class="col-md-4 mb-4">
       <div class="card">
@@ -18,13 +18,24 @@
           </button>
 
           <!-- Időpontfoglalás -->
-          <div class="mt-3">
-              <input type="date" class="form-control" #dateInput>
-              <input type="time" class="form-control" #timeInput step="1800">
-              <button class="btn btn-primary mt-2" (click)="bookAppointment(animal, dateInput.value)">
-              Időpont foglalása
-            </button>
-          </div>
+<div class="mt-3">
+  <label>Dátum:</label>
+  <input type="date" [(ngModel)]="appointmentDates[animal.name].date">
+
+  <label>Óra:</label>
+  <select [(ngModel)]="appointmentDates[animal.name].hour">
+    <option *ngFor="let hour of hours" [value]="hour">{{ hour }}:00</option>
+  </select>
+
+  <label>Perc:</label>
+  <select [(ngModel)]="appointmentDates[animal.name].minute">
+    <option *ngFor="let minute of minutes" [value]="minute">{{ minute | number: '2.0' }}</option>
+  </select>
+
+  <button class="btn btn-primary mt-2" (click)="bookAppointment(animal.name)">
+    Időpont foglalása
+  </button>
+</div>
 
         </div>
       </div>

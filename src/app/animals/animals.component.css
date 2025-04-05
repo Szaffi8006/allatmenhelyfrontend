@@ -5,11 +5,7 @@
     transition: transform 0.3s ease-in-out; /* Animáció a kártya mozgásához */
   }
   
-  .card:hover {
-    transform: translateY(-5px); /* Mozgás, amikor a kártyára húzzuk az egeret */
-  }
   
   .card-img-top {
-    object-fit: cover; /* Kép szép illesztése */
-    height: 200px; /* Kép magassága */
+    object-fit: cover;
   }

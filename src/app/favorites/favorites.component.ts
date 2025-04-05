@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FavoriteService } from '../favorite.service';  // Szolgáltatás importálása
+import { FavoriteService } from '../favorite.service'; 
 
 @Component({
   selector: 'app-favorites',
