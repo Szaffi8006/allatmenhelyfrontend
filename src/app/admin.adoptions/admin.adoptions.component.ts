@@ -88,19 +88,20 @@ export class AdminAdoptionsComponent implements OnInit {
   updateAdoption(): void {
     if (this.selectedAdoption) {
       const updatedData = {
+        adoption_id: this.selectedAdoption.id,
         animal_name: this.selectedAdoption.animal_name,
         adopter_name: this.selectedAdoption.adopter_name,
         date_of_adoption: this.selectedAdoption.date_of_adoption
       };
   
-      this.adminService.updateAdoption(this.selectedAdoption, updatedData).subscribe(res => {
+      this.adminService.updateAdoption(this.selectedAdoption.id, updatedData).subscribe(res => {
         if (res.success) {
-          this.loadAdoptions(); // újratöltjük a listát
-          this.selectedAdoption = null;
+          // Újratöltjük az örökbefogadott állatok listáját
+          this.loadAdoptions(); 
+          this.selectedAdoption = null; // Kiválasztott örökbefogadás törlése
         }
       });
     }
-  
   }
 
   // Dátum formázása a kívánt formátumba
