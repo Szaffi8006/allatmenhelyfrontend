@@ -12,6 +12,9 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminUsersComponent } from './admin.users/admin.users.component';
 import { AnimalsComponent } from './animals/animals.component';
 import { SearchComponent } from './search/search.component';
+import { InformationComponent } from './information/information.component';
+import { HowitworksComponent } from './howitworks/howitworks.component';
+import { ContactComponent } from './contact/contact.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
@@ -40,8 +43,8 @@ const routes: Routes = [
   { 
     path: "information",
     children: [
-      { path: "contact", component: FavoritesComponent },
-      { path: "howitworks", component: AppointmentsComponent }
+      { path: "contact", component: ContactComponent },
+      { path: "howitworks", component: HowitworksComponent }
     ]
   },
 

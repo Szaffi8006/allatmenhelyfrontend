@@ -25,6 +25,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
 import { LogoutComponent } from './logout/logout.component';
+import { HowitworksComponent } from './howitworks/howitworks.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { LogoutComponent } from './logout/logout.component';
     AppointmentsComponent,
     AuthComponent,
     LogoutComponent,
+    HowitworksComponent,
+    ContactComponent,
   
   ],
   imports: [

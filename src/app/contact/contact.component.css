@@ -1,0 +1,39 @@
+.custom-img {
+    width: auto;
+    height: 300px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .row {
+    margin-bottom: 0 !important;
+  }
+  
+  h3 {
+    margin-top: 10px;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+  
+  /* Térkép stílus */
+  .map-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Arányos magasság (16:9) */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #f0f0f0;
+    border-radius: 8px;
+  }
+  
+  .map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
