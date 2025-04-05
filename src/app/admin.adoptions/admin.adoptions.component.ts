@@ -33,7 +33,7 @@ export class AdminAdoptionsComponent implements OnInit {
         this.adoptions = res.data.map((adoption: any) => {
           return {
             ...adoption,
-            date_of_adoption: this.formatDate(adoption.date_of_adoption) // Formázzuk a dátumot
+            date_of_adoption: this.formatDate(adoption.date_of_adoption)
           };
         });
       }
@@ -41,7 +41,15 @@ export class AdminAdoptionsComponent implements OnInit {
       console.error('Hiba történt az örökbefogadások betöltésekor:', error);
     });
   }
-
+  
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  
   loadAnimals(): void {
     this.adminService.getAnimals().subscribe((res: any) => {
       if (res.success) {
@@ -87,29 +95,26 @@ export class AdminAdoptionsComponent implements OnInit {
 
   updateAdoption(): void {
     if (this.selectedAdoption) {
+      // Frissített adat küldése a backendnek
       const updatedData = {
-        adoption_id: this.selectedAdoption.id,
-        animal_name: this.selectedAdoption.animal_name,
-        adopter_name: this.selectedAdoption.adopter_name,
-        date_of_adoption: this.selectedAdoption.date_of_adoption
+        id: this.selectedAdoption.id,  // Az örökbefogadás ID-ja
+        animal_name: this.selectedAdoption.animal_name,  // Állat neve
+        adopter_name: this.selectedAdoption.adopter_name,  // Örökbefogadó neve
+        date_of_adoption: this.selectedAdoption.date_of_adoption  // Örökbefogadás dátuma
       };
-  
-      this.adminService.updateAdoption(this.selectedAdoption.id, updatedData).subscribe(res => {
+      
+      // PUT kérés küldése
+      this.adminService.updateAdoption(updatedData).subscribe(res => {
         if (res.success) {
-          // Újratöltjük az örökbefogadott állatok listáját
+          // Ha a frissítés sikeres, akkor újratöltjük az adatokat
           this.loadAdoptions(); 
           this.selectedAdoption = null; // Kiválasztott örökbefogadás törlése
+          alert(res.message);  // Sikeres frissítés üzenet
         }
+      }, error => {
+        console.error("Hiba történt:", error);
+        alert("Hiba történt a frissítés során.");
       });
     }
-  }
-
-  // Dátum formázása a kívánt formátumba
-  formatDate(date: string): string {
-    const d = new Date(date);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = d.getFullYear();
-    return `${year}.${month}.${day}`;
-  }
+  }  
 }

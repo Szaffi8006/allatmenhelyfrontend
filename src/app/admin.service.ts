@@ -109,9 +109,7 @@ export class AdminService {
     }
     
     //Örökbefogadás módosítása
-    updateAdoption(adoption: any, updatedData: { animal_name: any; adopter_name: any; date_of_adoption: any; }): Observable<any> {
-      // Itt a 'updatedData' tartalmazza a frissített adatokat
-      return this.http.put(`${this.baseUrl}/updateadoption`, updatedData); // 'updatedData'-t küldjük a szerverre
-    }    
-
+    updateAdoption(updatedData: { id: number; animal_name: string; adopter_name: string; date_of_adoption: string }): Observable<any> {
+      return this.http.put(`${this.baseUrl}/updateadoption`, updatedData);
+    }
 }

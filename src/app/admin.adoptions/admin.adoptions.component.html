@@ -3,7 +3,7 @@
     <p class="alert alert-warning">Nincsenek örökbefogadott állatok.</p>
 </div>
 
-<div *ngIf="adoptions.length > 0">
+<div *ngIf="adoptions.length > 0" class="mt-5">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -17,7 +17,7 @@
             <tr *ngFor="let adoption of adoptions">
                 <td>{{ adoption.animal_name }}</td>
                 <td>{{ adoption.adopter_name }}</td>
-                <td>{{ adoption.date_of_adoption | date:'shortDate' }}</td>
+                <td>{{ adoption.date_of_adoption }}</td>
                 <td>
                     <button class="btn btn-info" (click)="selectAdoption(adoption)">Módosítás</button>
                 </td>

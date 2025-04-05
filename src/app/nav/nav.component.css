@@ -76,10 +76,10 @@
     transition: background-color 0.3s ease;
 }
 
-.navbar-nav .nav-item .btn:hover {
+/* .navbar-nav .nav-item .btn:hover {
     background-color: #0056b3; /* Kattintás utáni kék árnyalat */
-}
-
+/* } */
+ 
 .navbar-nav .nav-item .btn:focus {
     outline: none;
 }
