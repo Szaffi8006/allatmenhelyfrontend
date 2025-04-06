@@ -1,1 +1,33 @@
-<p>admin.appointments works!</p>
+<div class="container mt-5">
+    <h2>Lefoglalt időpontok</h2>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Felhasználó</th>
+          <th>Állat</th>
+          <th>Időpont</th>
+          <th>Művelet</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td>{{ appointment.id }}</td>
+          <td>{{ appointment.user_name }}</td>
+          <td>{{ appointment.animal_name }}</td>
+          <td>{{ appointment.appointment_time }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteAppointment(appointment.id)">
+              <i class="bi bi-trash"></i> Törlés
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="message" class="alert alert-success mt-3" role="alert">
+      {{ message }}
+    </div>
+  </div>
+  

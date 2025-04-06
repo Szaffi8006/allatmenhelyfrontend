@@ -55,12 +55,12 @@ export class AdminService {
     adopted: boolean, 
     image: string 
   }): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/updateanimal`, animal);
+    return this.http.put<any>(`${this.baseUrl}/updateanimal`, animal, { headers: this.getHeaders() });
   }
 
   // Állat törlése
   deleteAnimal(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/deleteanimal/${id}`);
+    return this.http.delete<any>(`${this.baseUrl}/deleteanimal/${id}`, { headers: this.getHeaders() });
   }
 
   // Az összes felhasználó lekérése
@@ -100,16 +100,26 @@ export class AdminService {
     
     //Örökbefogadások lekérdezése
     getAdoptions(): Observable<any> {
-      return this.http.get(`${this.baseUrl}/adoptions`);
+      return this.http.get(`${this.baseUrl}/adoptions`,  { headers: this.getHeaders() });
     }
     
     //Új örökbefogadás
     addAdoption(adoption: any): Observable<any> {
-      return this.http.post(`${this.baseUrl}/newadoption`, adoption);
+      return this.http.post(`${this.baseUrl}/newadoption`, adoption,  { headers: this.getHeaders() });
     }
     
     //Örökbefogadás módosítása
     updateAdoption(updatedData: { id: number; animal_name: string; adopter_name: string; date_of_adoption: string }): Observable<any> {
-      return this.http.put(`${this.baseUrl}/updateadoption`, updatedData);
+      return this.http.put(`${this.baseUrl}/updateadoption`, updatedData,  { headers: this.getHeaders() });
     }
+
+    //Foglalások lekérése
+    getAnyAppointments(): Observable<any> {
+      return this.http.get(`${this.baseUrl}/anyappointments`,  { headers: this.getHeaders() });
+    }
+    
+    //Foglalás törlése
+    deleteAppointment(id: number): Observable<any> {
+      return this.http.delete<any>(`${this.baseUrl}/deleteanyappointment/${id}`,  { headers: this.getHeaders() });
+    }   
 }
