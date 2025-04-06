@@ -31,7 +31,7 @@ export class AnimalsComponent implements OnInit {
             isFavorite: false
           }));
 
-          // minden állathoz alap appointment adat
+          // minden állathoz alap időpont
           this.animals.forEach(animal => {
             this.appointmentDates[animal.name] = { date: '', hour: 8, minute: 0 };
           });
@@ -71,21 +71,25 @@ export class AnimalsComponent implements OnInit {
       alert('Kérlek adj meg dátumot!');
       return;
     }
-
+  
+    // Átalakítjuk a 'hour' és 'minute' értékeket számokká, ha esetleg stringek
+    const hour = Number(appointment.hour);
+    const minute = Number(appointment.minute);
+  
     const appointmentDate = new Date(appointment.date);
     const day = appointmentDate.getDay(); // 0 = vasárnap, 1 = hétfő, ..., 6 = szombat
   
     // Feltételek ellenőrzése
+    console.log('hour:', hour, 'minute:', minute, 'day:', day); // Debugging
+  
     if (
-      appointment.hour >= 8 &&
-      appointment.hour < 20 &&
-      (appointment.minute === 0 || appointment.minute === 30) &&
-      day >= 1 && day <= 5
-      )
-      {
-      const hour = appointment.hour.toString().padStart(2, '0');
-      const minute = appointment.minute.toString().padStart(2, '0');
-      const appointmentTime = `${appointment.date} ${hour}:${minute}`;
+      hour >= 8 && hour < 20 && // 8:00 és 20:00 között
+      (minute === 0 || minute === 30) && // Csak egész vagy félórás időpontok
+      day >= 1 && day <= 5 // Csak hétköznapok
+    ) {
+      const formattedHour = hour.toString().padStart(2, '0');
+      const formattedMinute = minute.toString().padStart(2, '0');
+      const appointmentTime = `${appointment.date} ${formattedHour}:${formattedMinute}`;
   
       this.animalService.bookAppointment(animalName, appointmentTime).subscribe(
         () => {
