@@ -20,7 +20,6 @@ import { AdminUsersComponent } from './admin.users/admin.users.component';
 import { AdminAppointmentsComponent } from './admin.appointments/admin.appointments.component';
 import { AdminAdoptersComponent } from './admin.adopters/admin.adopters.component';
 import { AdminAdoptionsComponent } from './admin.adoptions/admin.adoptions.component';
-import { SearchComponent } from './search/search.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
@@ -45,7 +44,6 @@ import { ContactComponent } from './contact/contact.component';
     AdminAppointmentsComponent,
     AdminAdoptersComponent,
     AdminAdoptionsComponent,
-    SearchComponent,
     FavoritesComponent,
     AppointmentsComponent,
     AuthComponent,

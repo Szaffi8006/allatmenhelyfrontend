@@ -11,7 +11,6 @@ import { AdminAppointmentsComponent } from './admin.appointments/admin.appointme
 import { AdminComponent } from './admin/admin.component';
 import { AdminUsersComponent } from './admin.users/admin.users.component';
 import { AnimalsComponent } from './animals/animals.component';
-import { SearchComponent } from './search/search.component';
 import { InformationComponent } from './information/information.component';
 import { HowitworksComponent } from './howitworks/howitworks.component';
 import { ContactComponent } from './contact/contact.component';
@@ -36,7 +35,6 @@ const routes: Routes = [
     children: [
       { path: "", redirectTo: "list", pathMatch: "full" },
       { path: "animals", component: AnimalsComponent },
-      { path: "search", component: SearchComponent }
     ]
   },
 

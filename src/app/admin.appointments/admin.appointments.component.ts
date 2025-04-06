@@ -27,7 +27,6 @@ export class AdminAppointmentsComponent implements OnInit {
       }
     });
   }
-
   
   deleteAppointment(id: number): void {
     if (confirm('Biztosan törölni szeretnéd ezt az időpontot?')) {
@@ -46,4 +45,5 @@ export class AdminAppointmentsComponent implements OnInit {
       });
     }
   }
+  
 }
