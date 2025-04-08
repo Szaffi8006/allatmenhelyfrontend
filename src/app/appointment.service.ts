@@ -47,24 +47,8 @@ export class AppointmentService {
   }
 
   //Időpont frissítése
-  updateAppointment(appointment: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/updateappointment/${appointment.id}`, {
-      appointment_time: appointment.appointment_time,
-      name: appointment.animal_name
-    }, {
-      headers: this.getHeaders()  // Token átadása az Authorization header-ben
-    })
-    .pipe(
-      map(response => {
-        if (!response.success) {
-          throw new Error(response.message);
-        }
-        return response;
-      }),
-      catchError(error => {
-        console.error('Hiba történt a foglalás frissítésekor:', error);
-        return throwError(error);
-      })
-    );
-  }  
+    updateAppointment(id: number, appointment: { name: string; appointment_time: string }): Observable<any> {
+      return this.http.put(`${this.apiUrl}/updateappointment/${id}`,  appointment);
+    }
+  
 }

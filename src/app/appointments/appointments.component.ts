@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../appointment.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointments',
@@ -8,28 +7,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./appointments.component.css']
 })
 export class AppointmentsComponent implements OnInit {
+  appointments: any[] = [];  // Az időpontokat tároló tömb
+  selectedAppointment: any = null;  // A kiválasztott időpont
+  appointmentDates: any = {};  // A kiválasztott időpontok adatainak tárolása
+  hours: number[] = [];  // Órák
+  minutes: number[] = [];  // Percek
 
-  appointments: any[] = [];
-  appointmentDates: any = {};
-  errorMessage: string = '';
-  selectedAppointment: any = null;
-  hours: number[] = [];
-  minutes: number[] = [0, 30];
-  holidays: string[] = ["2025-01-01", "2025-03-15", "2025-04-21", "2025-05-01", "2025-08-20", "2025-10-23", "2025-12-25", "2025-12-26"];
-
-  constructor(
-    private appointmentService: AppointmentService, private router: Router) {}
+  constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
     this.getAppointments();
-    this.hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8-tól 20-ig órák
+    this.initTimeOptions();  // Órák és percek inicializálása
   }
 
   // Időpontok lekérése
   getAppointments(): void {
     this.appointmentService.getAppointments().subscribe(
       (response) => {
-        this.appointments = response.data;
+        this.appointments = response.data;  // A válasz 'data' kulcsában lévő adatokat használjuk
       },
       (error) => {
         console.error('Hiba történt az időpontok lekérésekor:', error);
@@ -37,52 +32,52 @@ export class AppointmentsComponent implements OnInit {
     );
   }
 
-  // Időpont törlése
-  deleteAppointment(appointmentId: number): void {
-    this.appointmentService.deleteAppointment(appointmentId).subscribe(
-      () => {
-        this.appointments = this.appointments.filter(a => a.id !== appointmentId);
-      },
-      (error: any) => {
-        this.errorMessage = 'Hiba történt az időpont törlésekor: ' + error.message;
-      }
-    );
-  }
-
   // Időpont kiválasztása
   selectAppointment(appointment: any): void {
     this.selectedAppointment = { ...appointment };  // Készítünk egy másolatot a szerkesztéshez
+    this.appointmentDates[appointment.animal_name] = {
+      date: appointment.appointment_time.split(' ')[0],  // A dátum rész
+      hour: appointment.appointment_time.split(' ')[1].split(':')[0],  // Az óra
+      minute: appointment.appointment_time.split(' ')[1].split(':')[1],  // A perc
+    };
   }
 
+  // Időpontok órák és percek inicializálása
+  initTimeOptions(): void {
+    this.hours = Array.from({ length: 13 }, (_, i) => i + 8);  // 8-19 óráig
+    this.minutes = [0, 30];  // Félórás időpontok
+  }
+
+  // Időpont módosítása
   updateAppointment(): void {
     const appointment = this.appointmentDates[this.selectedAppointment.animal_name];
-  
+
     if (!appointment.date) {
       alert('Kérlek adj meg dátumot!');
       return;
     }
-  
+
     const hour = Number(appointment.hour);
     const minute = Number(appointment.minute);
-  
+
     const appointmentDate = new Date(appointment.date);
     const day = appointmentDate.getDay();
-  
+
     if (hour >= 8 && hour < 20 && (minute === 0 || minute === 30) && day >= 1 && day <= 5) {
       const formattedHour = hour.toString().padStart(2, '0');
       const formattedMinute = minute.toString().padStart(2, '0');
       const appointmentTime = `${appointment.date} ${formattedHour}:${formattedMinute}`;
-  
+
       const updatedAppointment = {
-        id: this.selectedAppointment.id,
-        animal_name: this.selectedAppointment.animal_name,
+        name: this.selectedAppointment.animal_name,
         appointment_time: appointmentTime
       };
-  
-      this.appointmentService.updateAppointment(updatedAppointment).subscribe(
+
+      // Hívás a service-ben található updateAppointment metódusra
+      this.appointmentService.updateAppointment(this.selectedAppointment.id, updatedAppointment).subscribe(
         (response) => {
-          alert(response.message); // Sikeres frissítés
-          this.getAppointments(); // Frissíteni az időpontok listáját
+          alert(response.message);  // Sikeres frissítés
+          this.getAppointments();  // Frissíteni az időpontok listáját
         },
         (error) => {
           console.error('Hiba történt az időpont frissítésekor:', error);
@@ -91,5 +86,18 @@ export class AppointmentsComponent implements OnInit {
     } else {
       alert('A kiválasztott időpont érvénytelen!');
     }
+  }
+
+  // Időpont törlése
+  deleteAppointment(appointmentId: number): void {
+    this.appointmentService.deleteAppointment(appointmentId).subscribe(
+      (response) => {
+        alert('Az időpont sikeresen törölve!');
+        this.getAppointments();  // Frissítjük az időpontok listáját
+      },
+      (error) => {
+        console.error('Hiba történt az időpont törlésekor:', error);
+      }
+    );
   }
 }
