@@ -1,32 +1,52 @@
 <div class="container mt-5">
     <h2>Új állat hozzáadása</h2>
-    <form (ngSubmit)="onSubmit()" #animalForm="ngForm">
+    <form (ngSubmit)="onSubmit(animalForm)" #animalForm="ngForm">
+
         <div class="form-group">
             <label for="name">Név:</label>
-            <input type="text" class="form-control" id="name" [(ngModel)]="newAnimal.name" name="name" required #name="ngModel">
+            <input type="text" class="form-control" id="name"
+                [(ngModel)]="newAnimal.name" name="name" required #name="ngModel">
             <div *ngIf="name.invalid && name.touched" class="text-danger">A név mező kötelező!</div>
         </div>
 
         <div class="form-group">
             <label for="type">Típus:</label>
-            <input type="text" class="form-control" id="type" [(ngModel)]="newAnimal.type" name="type" required #type="ngModel">
+            <select class="form-control" id="type"
+                [(ngModel)]="newAnimal.type" name="type" required #type="ngModel">
+                <option value="">Válassz fajtát</option>
+                <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+            </select>
             <div *ngIf="type.invalid && type.touched" class="text-danger">A típus mező kötelező!</div>
         </div>
 
         <div class="form-group">
             <label for="size">Méret:</label>
-            <input type="text" class="form-control" id="size" [(ngModel)]="newAnimal.size" name="size" required #size="ngModel">
+            <select class="form-control" id="size"
+                [(ngModel)]="newAnimal.size" name="size" required #size="ngModel">
+                <option value="">Válassz méretet</option>
+                <option *ngFor="let s of sizes" [value]="s">{{ s }}</option>
+            </select>
             <div *ngIf="size.invalid && size.touched" class="text-danger">A méret mező kötelező!</div>
         </div>
 
         <div class="form-group">
-            <label for="date_of_birth">Születési idő:</label>
+            <label for="gender">Nem:</label>
+            <select class="form-control" id="gender"
+                [(ngModel)]="newAnimal.gender" name="gender" required #gender="ngModel">
+                <option value="">Válassz nemet</option>
+                <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
+            </select>
+            <div *ngIf="gender.invalid && gender.touched" class="text-danger">A nem mező kötelező!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="date_of_birth">Becsült születési ideje:</label>
             <input type="date" class="form-control" id="date_of_birth" [(ngModel)]="newAnimal.date_of_birth" name="date_of_birth" required #dob="ngModel">
             <div *ngIf="dob.invalid && dob.touched" class="text-danger">A születési idő mező kötelező!</div>
         </div>
 
         <div class="form-group">
-            <label for="date_of_admission">Felvétel dátuma:</label>
+            <label for="date_of_admission">Bekerülés dátuma:</label>
             <input type="date" class="form-control" id="date_of_admission" [(ngModel)]="newAnimal.date_of_admission" name="date_of_admission" required #admission="ngModel">
             <div *ngIf="admission.invalid && admission.touched" class="text-danger">A felvétel dátuma mező kötelező!</div>
         </div>
@@ -37,11 +57,6 @@
             <div *ngIf="description.invalid && description.touched" class="text-danger">A leírás mező kötelező!</div>
         </div>
 
-        <div class="form-group">
-            <label for="gender">Nem:</label>
-            <input type="text" class="form-control" id="gender" [(ngModel)]="newAnimal.gender" name="gender" required #gender="ngModel">
-            <div *ngIf="gender.invalid && gender.touched" class="text-danger">A nem mező kötelező!</div>
-        </div>
 
         <div class="form-group">
             <label for="image">Kép URL:</label>

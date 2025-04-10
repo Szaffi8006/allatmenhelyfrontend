@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-admin-animals',
+  selector: 'app-admin.animals',
   templateUrl: './admin.animals.component.html',
   styleUrls: ['./admin.animals.component.css']
 })
 export class AdminAnimalsComponent implements OnInit {
   animals: any[] = [];
+  types: string[] = ['kutya', 'macska'];
+  sizes: string[] = ['kicsi', 'közepes', 'nagy'];
+  genders: string[] = ['hím', 'nőstény'];
+  
   newAnimal: any = {
       name: '',
       type: '',
@@ -39,21 +43,22 @@ export class AdminAnimalsComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-      this.adminService.addAnimal(this.newAnimal).subscribe(() => {
-          this.loadAnimals();
-          this.newAnimal = {
-              name: '',
-              type: '',
-              size: '',
-              date_of_birth: '',
-              date_of_admission: '',
-              description: '',
-              gender: '',
-              image: '',
-              adopted: false
-          };
-      });
+  onSubmit(form: any) {
+    if (form.invalid) {
+      console.log('Az űrlap érvénytelen!');
+      return;
+    }
+  
+    this.adminService.addAnimal(this.newAnimal).subscribe({
+      next: (response) => {
+        console.log('Állat sikeresen hozzáadva', response);
+        this.loadAnimals();  // lista frissítés
+        form.resetForm();    // form ürít + validáció alaphelyzet
+      },
+      error: (error) => {
+        console.error('Hiba történt:', error);
+      }
+    });
   }
 
   onEdit(animal: any) {
