@@ -31,7 +31,7 @@ export class LoginComponent {
 
           setTimeout(() => {
             this.successMessage = '';
-            this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/animals/animals');
           }, 2000);
         } else {
           this.errorMessage = response.message || 'Bejelentkezés sikertelen';

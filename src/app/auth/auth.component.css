@@ -1,42 +1,95 @@
-/* Az egész kártyás felülethez: */
+/* Szülő elem: auth-container */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Magasság biztosítása, hogy középre kerüljön */
+  padding: 20px;
+}
+
+/* Form és kártya */
 .card {
+  width: 100%;
+  max-width: 500px; /* A form szélessége */
+  background-color: #fff;
   border-radius: 12px; /* Lekerekített sarkok */
-  background-color: #fff; /* Fehér háttér */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék az elemek körül */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék */
+  padding: 30px;
+  margin: 20px 0;
 }
 
-/* Form mezők stílusai */
-.form-group label {
-  font-weight: 600;
-  color: #333;
+/* A form mezők */
+.form-group {
+  margin-bottom: 20px;
 }
 
-/* A beviteli mezőknek is lekerekített sarkok */
+/* A beviteli mezők stílusa */
 .form-control {
   border-radius: 8px;
   padding: 10px;
+  width: 100%; /* Form szélessége */
+  margin-top: 5px;
 }
 
-/* A gomb színének beállítása */
-.btn-primary {
-  background-color: #007bff; /* Az alap navbar kék árnyalata */
-  border-color: #007bff;
+/* Gombok stílusai */
+button[type="submit"] {
+  width: 100%; /* A gomb szélessége */
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-/* Hover effektus a gombon */
-.btn-primary:hover {
+button[type="submit"]:hover {
   background-color: #0056b3;
-  border-color: #0056b3;
 }
 
-/* A kártyán belüli cím stílusa */
-.card-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #007bff; /* Az alap navbar kék árnyalata */
+/* Hibás inputok színének beállítása */
+.text-danger {
+  font-size: 12px;
+  margin-top: 5px;
 }
 
-/* A formok közötti margó */
-.card-body {
-  padding: 30px;
+/* Üzenetek stílusa */
+.alert {
+  margin-top: 15px;
+  width: 100%;
+  max-width: 500px; /* A hiba/siker üzenetek szélessége */
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Sikeres üzenet */
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Hibás üzenet */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Reszponzivitás a kisebb képernyőkön */
+@media (max-width: 576px) {
+  .auth-container {
+    padding: 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  button[type="submit"] {
+    font-size: 14px;
+    padding: 8px;
+  }
 }

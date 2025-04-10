@@ -46,7 +46,16 @@ export class AuthComponent {
       },
       (error: any) => {
         // Hiba történt
-        this.errorMessage = error?.message || 'Hiba történt a bejelentkezés során';
+        if (error.status === 404) {
+          // Ha 404-es hiba történt
+          this.errorMessage = 'Hiba a bejelentkezés során, ellenőrizd a bejelentkezési adatokat.';
+        } else if (error.status === 401) {
+          // Ha 401-es hiba (nem jogosultság) történik
+          this.errorMessage = 'Hibás bejelentkezési adatok!';
+        } else {
+          // Általános hibaüzenet
+          this.errorMessage = error?.message || 'Hiba történt a bejelentkezés során';
+        }
         this.successMessage = '';
       }
     );
@@ -54,42 +63,88 @@ export class AuthComponent {
 
   // Regisztráció
   onRegister() {
+    // Ellenőrizzük, hogy a név kitöltött-e
+    if (!this.registerData.name) {
+      this.errorMessage = 'A név megadása kötelező!';
+      return;
+    }
+
+    // Ellenőrizzük, hogy az email érvényes-e
     if (!this.isValidEmail(this.registerData.email)) {
       this.errorMessage = 'Kérem, adjon meg egy érvényes e-mail címet.';
       return;
     }
 
+    // Ellenőrizzük, hogy a jelszavak megegyeznek-e
+    if (this.registerData.password !== this.registerData.confirm_password) {
+      this.errorMessage = 'A jelszavaknak egyezniük kell!';
+      return;
+    }
+
+    // Ellenőrizzük, hogy a jelszó elég erős-e (pl. legalább 8 karakter, kis- és nagybetűk, számok)
+    if (!this.isValidPassword(this.registerData.password)) {
+      this.errorMessage = 'A jelszónak legalább 8 karakter hosszúnak kell lennie, és tartalmaznia kell kis- és nagybetűt, valamint számokat.';
+      return;
+    }
+
+    // Küldjük a regisztrációs adatokat a backendnek
     this.authService.register(this.registerData).subscribe(
       (response: any) => {
-        console.log('Backend válasz regisztráció után:', response);
+        console.log('Backend válasz regisztráció után:', response); // A válasz részleteinek logolása
 
+        // Ha van üzenet a válaszban, akkor sikeres regisztrációt kezelünk
         if (response && response.message) {
-          // Ha a válasz tartalmazza a sikeres üzenetet
-          this.successMessage = response.message;
+          this.successMessage = response.message || 'Sikeres regisztráció!'; // Sikeres üzenet
           this.errorMessage = '';
 
-          // Form kiürítése sikeres regisztráció után
+          // Űrlap törlése
           this.clearForm();
 
-          // Navigálás a bejelentkezés oldalra
-          this.router.navigate(['/login']).then(() => {
-            this.autoClearMessage();
-          });
+          // Várunk 1-2 másodpercet, hogy a felhasználó láthassa az üzenetet
+          setTimeout(() => {
+            // Átirányítjuk a felhasználót a bejelentkezési oldalra
+            this.router.navigate(['/login']).then(() => {
+              this.autoClearMessage(); // Üzenet törlés automatikusan
+            });
+          }, 2000); // 2 másodperc várakozás
         } else {
-          // Ha nincs üzenet vagy valami hiba történt
-          this.errorMessage = 'Hiba történt a regisztráció során';
+          this.errorMessage = response?.message || 'Hiba történt a regisztráció során';
           this.successMessage = '';
         }
       },
       (error: any) => {
-        // Ha hiba történt
-        this.errorMessage = error?.message || 'Hiba történt a regisztráció során';
+        console.error('Hiba a regisztráció során:', error); // Hiba naplózása
+
+        // Backend hibák kezelése
+        if (error?.error?.data) {
+          this.handleBackendErrors(error.error.data); // Hibák kezelése
+        } else {
+          this.errorMessage = error?.message || 'Hiba történt a regisztráció során';
+        }
         this.successMessage = '';
       }
     );
   }
 
-  // űrlap törlés (bejelentkezés és regisztráció)
+  // Backend hibák kezelése (például már létező név vagy email)
+  handleBackendErrors(errors: any): void {
+    const errorMessages = [];
+
+    // Ha van név hibája
+    if (errors.name) {
+      errorMessages.push(errors.name.join(' '));
+    }
+
+    // Ha van email hibája
+    if (errors.email) {
+      errorMessages.push(errors.email.join(' '));
+    }
+
+    // Hibaüzenetek összefűzése
+    this.errorMessage = errorMessages.join(' ');
+  }
+
+  // űrlap törlés
   clearForm(): void {
     this.registerData = { name: '', email: '', password: '', confirm_password: '' };
     this.loginData = { name: '', password: '' };
@@ -108,4 +163,11 @@ export class AuthComponent {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   }
+
+  // Jelszó validálása (minimum 8 karakter, tartalmaz kis- és nagybetűt, számot)
+  isValidPassword(password: string): boolean {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return passwordPattern.test(password);
+  }
+
 }
