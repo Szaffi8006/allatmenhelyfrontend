@@ -44,7 +44,7 @@ export class AppointmentsComponent implements OnInit {
 
   // Időpontok órák és percek inicializálása
   initTimeOptions(): void {
-    this.hours = Array.from({ length: 13 }, (_, i) => i + 8);  // 8-19 óráig
+    this.hours = Array.from({ length: 12 }, (_, i) => i + 8);  // 8-19 óráig
     this.minutes = [0, 30];  // Félórás időpontok
   }
 
@@ -63,7 +63,7 @@ export class AppointmentsComponent implements OnInit {
     const appointmentDate = new Date(appointment.date);
     const day = appointmentDate.getDay();
 
-    if (hour >= 8 && hour < 20 && (minute === 0 || minute === 30) && day >= 1 && day <= 5) {
+    if (hour >= 8 && hour < 19 && (minute === 0 || minute === 30) && day >= 1 && day <= 5) {
       const formattedHour = hour.toString().padStart(2, '0');
       const formattedMinute = minute.toString().padStart(2, '0');
       const appointmentTime = `${appointment.date} ${formattedHour}:${formattedMinute}`;

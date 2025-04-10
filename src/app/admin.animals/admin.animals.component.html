@@ -73,38 +73,40 @@
     </form>
 </div>
 
-<!-- 📌 Állatok listája szerkesztéssel és törléssel -->
 <div class="container mt-5">
     <h2>Állatok listája</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Kép</th>
-                <th>Név</th>
-                <th>Típus</th>
-                <th>Méret</th>
-                <th>Születési idő</th>
-                <th>Leírás</th>
-                <th>Nem</th>
-                <th>Örökbefogadott</th>
-                <th>Műveletek</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let animal of animals">
-                <td><img [src]="animal.image || 'default-image-url.jpg'" alt="{{animal.name}}" class="animal-img"></td>
-                <td><input [(ngModel)]="animal.name" (ngModelChange)="onEdit(animal)" class="form-control"></td>
-                <td><input [(ngModel)]="animal.type" (ngModelChange)="onEdit(animal)" class="form-control"></td>
-                <td><input [(ngModel)]="animal.size" (ngModelChange)="onEdit(animal)" class="form-control"></td>
-                <td><input [(ngModel)]="animal.date_of_birth" type="date" (ngModelChange)="onEdit(animal)" class="form-control"></td>
-                <td><textarea [(ngModel)]="animal.description" (ngModelChange)="onEdit(animal)" class="form-control"></textarea></td>
-                <td><input [(ngModel)]="animal.gender" (ngModelChange)="onEdit(animal)" class="form-control"></td>
-                <td><input type="checkbox" [(ngModel)]="animal.adopted" (ngModelChange)="onEdit(animal)"></td>
-                <td>
-                    <button class="btn btn-success" (click)="updateAnimal(animal)" [disabled]="!animal.edited">Módosítás</button>
-                    <button class="btn btn-danger" (click)="deleteAnimal(animal.id)">Törlés</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Mobilbarát táblázat -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Kép</th>
+                    <th>Név</th>
+                    <th>Típus</th>
+                    <th>Méret</th>
+                    <th>Születési idő</th>
+                    <th>Leírás</th>
+                    <th>Nem</th>
+                    <th>Örökbefogadott</th>
+                    <th>Műveletek</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let animal of animals">
+                    <td><img [src]="animal.image || 'default-image-url.jpg'" alt="{{animal.name}}" class="animal-img"></td>
+                    <td><input [(ngModel)]="animal.name" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                    <td><input [(ngModel)]="animal.type" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                    <td><input [(ngModel)]="animal.size" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                    <td><input [(ngModel)]="animal.date_of_birth" type="date" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                    <td><textarea [(ngModel)]="animal.description" (ngModelChange)="onEdit(animal)" class="form-control"></textarea></td>
+                    <td><input [(ngModel)]="animal.gender" (ngModelChange)="onEdit(animal)" class="form-control"></td>
+                    <td><input type="checkbox" [(ngModel)]="animal.adopted" (ngModelChange)="onEdit(animal)"></td>
+                    <td>
+                        <button class="btn btn-success" (click)="updateAnimal(animal)" [disabled]="!animal.edited">Módosítás</button>
+                        <button class="btn btn-danger" (click)="deleteAnimal(animal.id)">Törlés</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

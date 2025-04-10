@@ -28,14 +28,14 @@
       <h3>Felhasznnálók</h3>
       <form (ngSubmit)="updateUser()">
         <div class="mb-3">
-          <label for="name" class="form-label">Name:</label>
+          <label for="name" class="form-label">Név:</label>
           <input id="name" class="form-control" [(ngModel)]="selectedUser.name" name="name" />
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
           <input id="email" class="form-control" [(ngModel)]="selectedUser.email" name="email" />
         </div>
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="submit">Mentés</button>
       </form>
     </div>
   
