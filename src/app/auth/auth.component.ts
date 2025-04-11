@@ -146,7 +146,7 @@ export class AuthComponent {
 
   // űrlap törlés
   clearForm(): void {
-    this.registerData = { name: '', email: '', password: '', confirm_password: '' };
+    // this.registerData = { name: '', email: '', password: '', confirm_password: '' };
     this.loginData = { name: '', password: '' };
   }
 
@@ -156,6 +156,16 @@ export class AuthComponent {
       this.successMessage = '';
       this.errorMessage = '';
     }, 3000);
+  }
+
+  //Kijelentkezés
+
+  logout() {
+    // Tokent és egyéb adatok törlése
+    this.authService.logout();
+
+    // Átirányítás a bejelentkezési oldalra
+    this.router.navigate(['/home']);
   }
 
   // E-mail validáció

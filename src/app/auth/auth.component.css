@@ -6,22 +6,28 @@
   align-items: center;
   min-height: 100vh; /* Magasság biztosítása, hogy középre kerüljön */
   padding: 20px;
+  width: 100%; /* Biztosítjuk, hogy a szülőelem teljes szélességet vegyen fel */
+  box-sizing: border-box; /* Ne legyenek nem kívánt margók */
 }
 
 /* Form és kártya */
 .card {
   width: 100%;
-  max-width: 500px; /* A form szélessége */
+  max-width: 500px; /* A form maximális szélessége */
   background-color: #fff;
   border-radius: 12px; /* Lekerekített sarkok */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék */
   padding: 30px;
   margin: 20px 0;
+  display: flex;
+  flex-direction: column; /* Flexbox használata a kártyán belül */
+  align-items: center; /* A tartalom középre igazítása a kártyán belül */
 }
 
 /* A form mezők */
 .form-group {
   margin-bottom: 20px;
+  width: 100%; /* A form mezők 100% szélességűek legyenek */
 }
 
 /* A beviteli mezők stílusa */
@@ -84,7 +90,7 @@ button[type="submit"]:hover {
 
   .card {
     width: 100%;
-    max-width: 100%;
+    max-width: 100%; /* Mobilon a kártya teljes szélességű legyen */
     padding: 15px;
   }
 

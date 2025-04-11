@@ -34,11 +34,29 @@ export class AuthService {
   }
   
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('isAdmin');
-    this.loginStatusSubject.next('Sikeres kijelentkezés');  // Sikeres kijelentkezés
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      this.http.post<any>(`${this.apiUrl}/logout`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .subscribe({
+        next: (response) => {
+          console.log('Sikeres kijelentkezés:', response);
+      
+          localStorage.removeItem('token');
+          localStorage.removeItem('isAdmin');
+          this.loginStatusSubject.next('Sikeres kijelentkezés');
+        },
+        error: (error) => {
+          console.error('Hiba kijelentkezés közben:', error);
+        }
+      });
+    }  
   }
-
+  
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }

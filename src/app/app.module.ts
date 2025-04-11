@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from '../auth.interceptor';
 import { NavComponent } from './nav/nav.component';
 import { AnimalsComponent } from './animals/animals.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
@@ -23,7 +22,6 @@ import { AdminAdoptionsComponent } from './admin.adoptions/admin.adoptions.compo
 import { FavoritesComponent } from './favorites/favorites.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthComponent } from './auth/auth.component';
-import { LogoutComponent } from './logout/logout.component';
 import { HowitworksComponent } from './howitworks/howitworks.component';
 import { ContactComponent } from './contact/contact.component';
 
@@ -32,7 +30,6 @@ import { ContactComponent } from './contact/contact.component';
     AppComponent,
     NavComponent,
     AnimalsComponent,
-    RegistrationComponent,
     LoginComponent,
     FooterComponent,
     AdminComponent,
@@ -47,7 +44,6 @@ import { ContactComponent } from './contact/contact.component';
     FavoritesComponent,
     AppointmentsComponent,
     AuthComponent,
-    LogoutComponent,
     HowitworksComponent,
     ContactComponent,
   

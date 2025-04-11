@@ -2,8 +2,6 @@ import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { AdminAdoptersComponent } from './admin.adopters/admin.adopters.component';
 import { AdminAdoptionsComponent } from './admin.adoptions/admin.adoptions.component';
 import { AdminAnimalsComponent } from './admin.animals/admin.animals.component';
@@ -26,8 +24,8 @@ const routes: Routes = [
   { path: 'super', component: AdminComponent, canActivate: [SuperGuardService] },
   { path: "auth", component: AuthComponent },        
   { path: "login", component: LoginComponent },
-  { path: 'logout', component: LogoutComponent },
-  { path: "registration", component: RegistrationComponent },
+  { path: 'logout', component: AuthComponent },
+  { path: "registration", component: AuthComponent },
 
   { 
     path: "animals", 

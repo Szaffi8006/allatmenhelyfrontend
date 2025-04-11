@@ -9,6 +9,7 @@ footer {
     justify-content: space-between; /* Tartalom elosztása */
     align-items: center; /* Függőleges középre igazítás */
     text-align: left;
+    flex-wrap: wrap; /* Engedélyezi az elemek összepréselődését */
 }
 
 /* Logo és kapcsolatok blokk */
@@ -16,12 +17,14 @@ footer {
     display: flex;
     justify-content: space-between;
     width: 60%; /* A bal oldali rész */
+    flex-wrap: wrap; /* Engedélyezi az elemek rugalmas összefűzését */
+    gap: 20px; /* Kisebb gap a blokk elemei között */
 }
 
-/* Kapcsolati szekció */
 .footer-connects {
     font-size: 0.875rem;
     margin-top: 1rem;
+    width: 100%;
 }
 
 /* Kép a jobb oldalon */
@@ -29,6 +32,9 @@ footer {
     max-width: 200px; /* Kép szélesség */
     height: auto;
     margin-left: 20px;
+    flex-basis: 100%; /* A kép 100%-os szélességű lesz mobilon */
+    text-align: center; /* Kép középre igazítása */
+    margin-top: 20px; /* Kép és szöveg közötti távolság */
 }
 
 /* Credits szekció */
@@ -36,6 +42,7 @@ footer {
     background-color: #fff;
     padding: 10px;
     border-top: 1px solid #ddd;
+    width: 100%; /* Az egész szélességet elfoglalja */
 }
 
 .footer-credits-inner {
